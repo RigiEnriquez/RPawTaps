@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary brand colors -->
+    <color name="colorPrimary">#F19E39</color>
+    <color name="colorPrimaryDark">#C47C2B</color>
+    <color name="colorAccent">#F19E39</color>
+
+    <!-- Background colors -->
+    <color name="background">#121212</color>
+    <color name="surface">#1E1E1E</color>
+
+    <!-- Text colors -->
+    <color name="textPrimary">#FFFFFF</color>
+    <color name="textSecondary">#CCCCCC</color>
+
+    <!-- Navigation bar -->
+    <color name="navigation_background">#1E1E1E</color>
+</resources>

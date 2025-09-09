@@ -1,0 +1,45 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.RPawTaps" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary brand colors -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
+        <item name="colorOnPrimary">@android:color/white</item>
+
+        <!-- Secondary brand colors -->
+        <item name="colorSecondary">@color/colorAccent</item>
+        <item name="colorOnSecondary">@android:color/white</item>
+
+        <!-- Background colors -->
+        <item name="android:colorBackground">@color/background</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/textPrimary</item>
+
+        <!-- Text colors -->
+        <item name="android:textColorPrimary">@color/textPrimary</item>
+        <item name="android:textColorSecondary">@color/textSecondary</item>
+
+        <!-- Status bar - White background with dark icons -->
+        <item name="android:statusBarColor">@android:color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+        <!-- Navigation bar -->
+        <item name="android:navigationBarColor">@color/navigation_background</item>
+
+        <!-- Button style -->
+        <item name="android:buttonStyle">@style/RPawButton</item>
+
+        <!-- Ensure smooth dark mode transitions -->
+        <item name="android:windowAnimationStyle">@android:style/Animation.Activity</item>
+    </style>
+
+    <style name="Theme.RPawTaps" parent="Base.Theme.RPawTaps" />
+
+    <!-- Custom button style -->
+    <style name="RPawButton" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/colorPrimary</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="elevation">4dp</item>
+    </style>
+</resources>
