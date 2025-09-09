@@ -40,7 +40,7 @@ RPawTaps is a fun clicker game where you tap the cat to earn coins and upgrade f
 ## Installation
 
 ### Option 1: Install from APK
-1. Go to the [Releases page](https://github.com/username/RPawTaps/releases) on GitHub.  
+1. Go to the [Releases page](https://github.com/RigiEnriquez/RPawTaps/releases) on GitHub.  
 2. Download the latest `RPawTaps.apk`.  
 3. On your Android device, enable **Install from Unknown Sources** if prompted.  
 4. Open the APK to install the app.
