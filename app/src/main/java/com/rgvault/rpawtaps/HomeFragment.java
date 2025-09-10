@@ -1,10 +1,10 @@
 package com.rgvault.rpawtaps;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.os.Bundle;
+import android.os.Handler;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -19,17 +19,24 @@ import androidx.appcompat.app.AlertDialog;
 
 public class HomeFragment extends Fragment {
 
-    private int coins = 0;
     private TextView number_coins;
     private ImageView pngCat;
     private SoundPool touchMeowSound;
     private int meowSoundId;
     private Animation touchAnimation;
-    private SharedPreferences sharedPreferences;
+    private CoinManager coinManager;
 
-    private static final String PREFS_NAME = "PawCoinsPrefs";
-    private static final String COINS_KEY = "coins";
-    private static final String FIRST_LAUNCH_KEY = "first_launch";
+    private Handler autoTapHandler = new Handler();
+    private Runnable autoTapRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (coinManager.isAutoTapActive()) {
+                coinManager.addCoins(1); // Auto Tap gives 1 coin/sec
+                number_coins.setText(String.valueOf(coinManager.getCoins()));
+                autoTapHandler.postDelayed(this, 1000);
+            }
+        }
+    };
 
     @Nullable
     @Override
@@ -40,16 +47,10 @@ public class HomeFragment extends Fragment {
         number_coins = view.findViewById(R.id.PawCoins);
         pngCat = view.findViewById(R.id.pngCat);
 
-        sharedPreferences = getActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        coins = sharedPreferences.getInt(COINS_KEY, 0);
-        number_coins.setText(String.valueOf(coins));
+        coinManager = new CoinManager(requireContext());
 
-        // ✅ Show tutorial if first launch
-        boolean isFirstLaunch = sharedPreferences.getBoolean(FIRST_LAUNCH_KEY, true);
-        if (isFirstLaunch) {
-            showTutorialDialog();
-            sharedPreferences.edit().putBoolean(FIRST_LAUNCH_KEY, false).apply();
-        }
+        // Display coins
+        number_coins.setText(String.valueOf(coinManager.getCoins()));
 
         // Sound setup
         AudioAttributes audioAttributes = new AudioAttributes.Builder()
@@ -64,30 +65,50 @@ public class HomeFragment extends Fragment {
 
         meowSoundId = touchMeowSound.load(getContext(), R.raw.meow_sound, 1);
 
-        // Animation setup
+        // Animation
         touchAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.bounce);
 
-        // Tap logic
+        // Cat tap logic
         pngCat.setOnClickListener(v -> {
-            int coinsEarned = sharedPreferences.getBoolean("double_coins", false) ? 2 : 1;
-            coins += coinsEarned;
-            number_coins.setText(String.valueOf(coins));
-            sharedPreferences.edit().putInt(COINS_KEY, coins).apply();
+            int baseCoins = 1;
 
-            // Play sound and animation
+            // If Mega Tap or other future upgrades, adjust here
+            int coinsEarned = coinManager.addCoins(baseCoins);
+            number_coins.setText(String.valueOf(coinManager.getCoins()));
+
             touchMeowSound.play(meowSoundId, 1, 1, 0, 0, 1);
             pngCat.startAnimation(touchAnimation);
         });
 
+        // Tutorial on first launch
+        boolean isFirstLaunch = requireActivity()
+                .getSharedPreferences("PawCoinsPrefs", Context.MODE_PRIVATE)
+                .getBoolean("first_launch", true);
+        if (isFirstLaunch) {
+            new AlertDialog.Builder(requireContext())
+                    .setTitle("Welcome to RPawTaps")
+                    .setMessage("Tap the cat to earn PawCoins!\n\nEach tap = 1 PawCoin.")
+                    .setPositiveButton("Got it!", null)
+                    .show();
+            requireActivity().getSharedPreferences("PawCoinsPrefs", Context.MODE_PRIVATE)
+                    .edit().putBoolean("first_launch", false).apply();
+        }
+
         return view;
     }
 
-    private void showTutorialDialog() {
-        new AlertDialog.Builder(getContext())
-                .setTitle("Welcome to RPawTaps")
-                .setMessage("Tap the cat to earn PawCoins!\n\nEach tap = 1 PawCoin. Collect as many as you can!")
-                .setPositiveButton("Got it!", null)
-                .show();
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (coinManager.isAutoTapActive()) {
+            autoTapHandler.post(autoTapRunnable);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        autoTapHandler.removeCallbacks(autoTapRunnable);
     }
 
     @Override

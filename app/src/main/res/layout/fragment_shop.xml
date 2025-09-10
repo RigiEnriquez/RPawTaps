@@ -1,14 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFF8E1"
+    android:background="@android:color/transparent"
     android:padding="24dp">
 
-    <!-- Container for Card + Button -->
     <LinearLayout
-        android:id="@+id/centerBlock"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -17,11 +16,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.3"> <!-- moves block lower -->
+        app:layout_constraintVertical_bias="0.3">
 
         <!-- PawCoins Display Card -->
         <androidx.cardview.widget.CardView
-            android:id="@+id/coinCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
@@ -34,14 +32,15 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="20dp"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                tools:ignore="UseCompoundDrawables">
 
                 <ImageView
-                    android:id="@+id/coinIcon"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
+                    android:contentDescription="PawCoin Icon"
                     android:src="@drawable/pawcoin"
-                    android:contentDescription="PawCoin Icon" />
+                    tools:ignore="HardcodedText,ImageContrastCheck" />
 
                 <TextView
                     android:id="@+id/shopCoins"
@@ -51,11 +50,12 @@
                     android:text="PawCoins: 0"
                     android:textColor="#1A1A1A"
                     android:textSize="24sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Buy Coins Button -->
+        <!-- Double Coins Button -->
         <Button
             android:id="@+id/btnDoubleCoins"
             style="@style/Widget.MaterialComponents.Button"
@@ -64,10 +64,27 @@
             android:layout_marginTop="20dp"
             android:backgroundTint="#1A4363"
             android:padding="16dp"
-            android:text="Buy Double PawCoins (50)"
+            android:text="Buy Double PawCoins (150)"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            tools:ignore="HardcodedText,VisualLintButtonSize" />
+
+        <!-- Auto Tap Button -->
+        <Button
+            android:id="@+id/btnAutoTap"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="#1A4363"
+            android:padding="16dp"
+            android:text="Buy Auto Tap (200)"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            tools:ignore="HardcodedText,VisualLintButtonSize" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
