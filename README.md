@@ -48,6 +48,6 @@ RPawTaps is a fun clicker game where you tap the cat to earn coins and upgrade f
 ### Option 2: Build from Source
 1. Clone the repository:  
    ```bash
-   git clone https://github.com/username/RPawTaps.git
+   git clone https://github.com/RigiEnriquez/RPawTaps.git
 2. Open the project in Android Studio.
 3. Build and run the app on an emulator or Android device.
