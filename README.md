@@ -26,6 +26,9 @@ RPawTaps is a fun clicker game where you tap the cat to earn coins and upgrade f
 
 ## Screenshots
 
+![App Icon](screenshots/app_icon.png)
+*Official app icon.*
+
 ![Tutorial Screen](screenshots/tutorial_screen.png)
 *Tutorial screen.*
 
